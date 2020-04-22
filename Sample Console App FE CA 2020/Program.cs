@@ -11,7 +11,7 @@ namespace Sample_Console_App_FE_CA_2020
     {
         static void Main(string[] args)
         {
-            Activity.Track("Sample Project Test");
+            Activity.Track("Starting the project");
         }
     }
 }

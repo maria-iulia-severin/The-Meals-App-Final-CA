@@ -6,10 +6,10 @@
       <Value Profile="(Default)">RAD302FinalCA2020</Value>
     </Setting>
     <Setting Name="StudentID" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">ppowell</Value>
+      <Value Profile="(Default)">S00201400</Value>
     </Setting>
     <Setting Name="StudentName" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Paul Powell</Value>
+      <Value Profile="(Default)">Maria Severin</Value>
     </Setting>
   </Settings>
 </SettingsFile>
