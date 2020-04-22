@@ -260,6 +260,14 @@
       <Project>{ac210e17-3c6e-46c0-8980-c0769673fa0d}</Project>
       <Name>ActivityTracker</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TheMealsApp.Classes\TheMealsApp.Classes.csproj">
+      <Project>{938bb654-b6e4-4b4f-aae3-5eb3e669f6eb}</Project>
+      <Name>TheMealsApp.Classes</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TheMealsApp.DataModel\TheMealsApp.DataModel.csproj">
+      <Project>{832e0875-d611-4472-b173-f569b060f9b5}</Project>
+      <Name>TheMealsApp.DataModel</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
