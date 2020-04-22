@@ -13,7 +13,7 @@ namespace TheMealsApp.DataModel.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "202004221254466_Initial"; }
+            get { return "202004221637211_Initial"; }
         }
         
         string IMigrationMetadata.Source

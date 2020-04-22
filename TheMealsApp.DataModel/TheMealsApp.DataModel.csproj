@@ -52,9 +52,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MealsContext.cs" />
-    <Compile Include="Migrations\202004221254466_Initial.cs" />
-    <Compile Include="Migrations\202004221254466_Initial.designer.cs">
-      <DependentUpon>202004221254466_Initial.cs</DependentUpon>
+    <Compile Include="Migrations\202004221637211_Initial.cs" />
+    <Compile Include="Migrations\202004221637211_Initial.designer.cs">
+      <DependentUpon>202004221637211_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -70,8 +70,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202004221254466_Initial.resx">
-      <DependentUpon>202004221254466_Initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202004221637211_Initial.resx">
+      <DependentUpon>202004221637211_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
