@@ -9,7 +9,7 @@ using TheMealsApp.DataModel;
 using System.Text;
 using System.Threading.Tasks;
 using Autofac.Integration.WebApi;
-
+using AutoMapper;
 
 namespace TheMealsApp.App_Start
 {
@@ -29,6 +29,16 @@ namespace TheMealsApp.App_Start
 
         private static void RegisterServices(ContainerBuilder bldr)
         {
+            //Mapping to use it with my dependency injection 
+            var config = new MapperConfiguration(cfg =>
+           {
+               cfg.AddProfile(new MealsMappingProfile());
+           });
+
+
+            bldr.RegisterInstance(config.CreateMapper())
+                .As<IMapper>()
+                .SingleInstance();
             bldr.RegisterType<MealsContext>()
               .InstancePerRequest();
 
