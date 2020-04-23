@@ -19,7 +19,7 @@ namespace TheMealsApp
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-            Activity.Track("Starting the project");
+            Activity.Track("Starting to work on the WEB API");
         }
 
     }
