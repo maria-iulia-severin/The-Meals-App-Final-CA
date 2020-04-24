@@ -6,6 +6,7 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
+using System.Web.Routing;
 using TheMealsApp.Classes.Models;
 using TheMealsApp.DataModel;
 
@@ -24,21 +25,40 @@ namespace TheMealsApp.Controllers
 
         //Get http://.../api/menus
         //IHttpActionResult allows us to return both, the status code and the result
+        //public async Task<IHttpActionResult> Get()
+        //{
+        //    try 
+        //    {  
+        //        var result = await _repository.GetAllMenusAsync();
+
+        //        //Mapping - Map to MenuModel the result - IEnumerable because is a collection
+        //        var mapperResult = _mapper.Map<IEnumerable<MenuModel>>(result);
+
+        //        return Ok(mapperResult);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        //to add loggin
+        //        return InternalServerError(ex);
+        //    }
+        //}
+
+       
         public async Task<IHttpActionResult> Get()
         {
-            try 
-            {  
-                var result = await _repository.GetAllMenusAsync();
+            try
+            {
+                var result = await _repository.GetMenusWithMealsAsync();
 
                 //Mapping - Map to MenuModel the result - IEnumerable because is a collection
-                var mapperResult = _mapper.Map<IEnumerable<MenuModel>>(result);
+               // var mapperResult = _mapper.Map<IEnumerable<MenuModel>>(result);
 
-                return Ok(mapperResult);
+                return Ok(result);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 //to add loggin
-                return InternalServerError();
+                return InternalServerError(ex);
             }
         }
     }

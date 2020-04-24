@@ -23,10 +23,27 @@ namespace TheMealsApp.DataModel
             return await query.ToArrayAsync();
         }
 
+        public async Task<Food[]> GetMenusWithMealsAsync(bool includeMenu = false)
+        {
+            IQueryable<Food> query = _context.Foods;
+            if(includeMenu)
+            {
+                query = query
+                    .Include(c => c.Menu);
+            }
+
+         
+            // Order It
+            query = query.OrderByDescending(c => c.Name);
+
+            return await query.ToArrayAsync();
+        }
+
         public async Task<bool> SaveChangesAsync()
         {
             // Only return success if at least one row was changed
             return (await _context.SaveChangesAsync()) > 0;
         }
+
     }
 }
