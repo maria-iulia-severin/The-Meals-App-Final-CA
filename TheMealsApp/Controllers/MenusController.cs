@@ -25,35 +25,16 @@ namespace TheMealsApp.Controllers
 
         //Get http://.../api/menus
         //IHttpActionResult allows us to return both, the status code and the result
-        //public async Task<IHttpActionResult> Get()
-        //{
-        //    try 
-        //    {  
-        //        var result = await _repository.GetAllMenusAsync();
-
-        //        //Mapping - Map to MenuModel the result - IEnumerable because is a collection
-        //        var mapperResult = _mapper.Map<IEnumerable<MenuModel>>(result);
-
-        //        return Ok(mapperResult);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        //to add loggin
-        //        return InternalServerError(ex);
-        //    }
-        //}
-
-       
         public async Task<IHttpActionResult> Get()
         {
             try
             {
-                var result = await _repository.GetMenusWithMealsAsync();
+                var result = await _repository.GetAllMenusAsync();
 
                 //Mapping - Map to MenuModel the result - IEnumerable because is a collection
-               // var mapperResult = _mapper.Map<IEnumerable<MenuModel>>(result);
+                var mapperResult = _mapper.Map<IEnumerable<MenuModel>>(result);
 
-                return Ok(result);
+                return Ok(mapperResult);
             }
             catch (Exception ex)
             {
@@ -61,5 +42,24 @@ namespace TheMealsApp.Controllers
                 return InternalServerError(ex);
             }
         }
+
+
+        //public async Task<IHttpActionResult> Get()
+        //{
+        //    try
+        //    {
+        //        var result = await _repository.GetMenusWithMealsAsync();
+
+        //        //Mapping - Map to MenuModel the result - IEnumerable because is a collection
+        //       // var mapperResult = _mapper.Map<IEnumerable<MenuModel>>(result);
+
+        //        return Ok(result);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        //to add loggin
+        //        return InternalServerError(ex);
+        //    }
+        //}
     }
 }
