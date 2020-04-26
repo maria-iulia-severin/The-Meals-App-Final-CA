@@ -1,6 +1,6 @@
 ﻿namespace TheMealsApp.Classes
 {
-    public enum MenuType
+    public enum MenuType 
     {
         Food = 1,
         Drink = 2

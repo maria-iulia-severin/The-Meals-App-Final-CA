@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TheMealsApp.Classes
 {
-    class DrinkItem : MenuItem
+    public class DrinkItem : MenuItem
     {
         public bool AlcoholFree { get; set; }
         public BeverageType DrinkType { get; set; }

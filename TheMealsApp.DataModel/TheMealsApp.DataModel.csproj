@@ -82,15 +82,17 @@
     <Compile Include="MealsMappingProfile.cs" />
     <Compile Include="MealsContext.cs" />
     <Compile Include="MealsRepository.cs" />
-    <Compile Include="Migrations\202004241810434_Initial-Inheritance.cs" />
-    <Compile Include="Migrations\202004241810434_Initial-Inheritance.Designer.cs">
-      <DependentUpon>202004241810434_Initial-Inheritance.cs</DependentUpon>
+    <Compile Include="Migrations\202004261921179_initial.cs" />
+    <Compile Include="Migrations\202004261921179_initial.Designer.cs">
+      <DependentUpon>202004261921179_initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="App_Data\Menu.csv.csv" />
+    <None Include="App_Data\MenuItem.csv" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -100,8 +102,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202004241810434_Initial-Inheritance.resx">
-      <DependentUpon>202004241810434_Initial-Inheritance.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202004261921179_initial.resx">
+      <DependentUpon>202004261921179_initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

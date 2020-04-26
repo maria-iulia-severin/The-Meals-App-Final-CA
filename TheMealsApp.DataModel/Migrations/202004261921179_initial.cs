@@ -3,7 +3,7 @@ namespace TheMealsApp.DataModel.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class InitialInheritance : DbMigration
+    public partial class initial : DbMigration
     {
         public override void Up()
         {

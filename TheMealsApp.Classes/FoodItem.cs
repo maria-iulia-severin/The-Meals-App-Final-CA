@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TheMealsApp.Classes
 {
-    class FoodItem : MenuItem
+    public class FoodItem : MenuItem
     {
         public string Recipe { get; set; }
         public FoodType FoodType { get; set; }
