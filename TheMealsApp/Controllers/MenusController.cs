@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Routing;
 using System.Web.UI.WebControls;
+using TheMealsApp.Classes;
 using TheMealsApp.Classes.Models;
 using TheMealsApp.DataModel;
 
@@ -65,5 +66,42 @@ namespace TheMealsApp.Controllers
             }
         }
 
+        //MenuType is an enum; Food=1 & Drink=2
+        [Route("searchByMenuType/{menuType:int}")]
+        [HttpGet]
+        public async Task<IHttpActionResult> SearchByMenuType(MenuType menuType, bool includeItems = false)
+        {
+            try
+            {
+                var result = await _repository.GetAllMenusByMenuType(menuType, includeItems);
+
+
+                //return a collection
+                return Ok(_mapper.Map<MenuModel[]>(result));
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+        }
+
+        //Using a string "Drink/Food" for search.
+        [Route("searchByMenuType")]
+        [HttpGet]
+        public async Task<IHttpActionResult> SearchByMenuTypeTest(string menuType, bool includeItems = false)
+        {
+            try
+            {
+                var result = await _repository.GetAllMenusByMenuTypeTest(menuType, includeItems);
+
+
+                //return a collection
+                return Ok(_mapper.Map<MenuModel[]>(result));
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+        }
     }
 }

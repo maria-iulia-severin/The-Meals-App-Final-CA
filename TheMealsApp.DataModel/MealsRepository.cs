@@ -11,7 +11,7 @@ namespace TheMealsApp.DataModel
     public class MealsRepository : IMealsRepository
     {
         private readonly MealsContext _context;
-
+        private readonly MenuType mType;
         public MealsRepository(MealsContext context)
         {
             _context = context;
@@ -51,6 +51,53 @@ namespace TheMealsApp.DataModel
             query = query.Where(c => c.Moniker == moniker);
 
             return await query.FirstOrDefaultAsync();
+        }
+
+        public async Task<Menu[]> GetAllMenusByMenuType(MenuType menuType, bool includeItems = false)
+        {
+            IQueryable<Menu> query = _context.Menus;
+
+            if (includeItems)
+            {
+                query = query
+                  .Include(c => c.Items);
+            }
+
+            // Order It
+            query = query.OrderByDescending(c => c.MenuType)
+              .Where(c => c.MenuType == menuType);
+
+            return await query.ToArrayAsync();
+        }
+
+        public async Task<Menu[]> GetAllMenusByMenuTypeTest(string menuType, bool includeItems = false)
+        {
+            IQueryable<Menu> query = _context.Menus;
+            if (includeItems)
+            {
+                query = query
+                  .Include(c => c.Items);
+            }
+            if (menuType=="food")
+            {
+                MenuType mType = MenuType.Food;
+                query = query.OrderByDescending(c => c.MenuType)
+             .Where(c => c.MenuType == mType);
+            }
+            else
+            {
+                MenuType mType = MenuType.Drink;
+                query = query.OrderByDescending(c => c.MenuType)
+             .Where(c => c.MenuType == mType);
+            }
+
+           
+
+            // Order It
+            //query = query.OrderByDescending(c => c.MenuType)
+            //  .Where(c => c.MenuType == mType);
+
+            return await query.ToArrayAsync();
         }
     }
 }

@@ -15,7 +15,8 @@ namespace TheMealsApp.DataModel
         // Menus 
         Task<Menu[]> GetAllMenusAsync(bool includeItems = false);
         Task<Menu> GetMenuAsync(string moniker, bool includeItems = false);
-          
+        Task<Menu[]> GetAllMenusByMenuType(MenuType menuType, bool includeItems = false);
+        Task<Menu[]> GetAllMenusByMenuTypeTest(string menuType, bool includeItems = false);
 
 
     }
