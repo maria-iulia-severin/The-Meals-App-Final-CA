@@ -22,7 +22,7 @@ namespace TheMealsApp.DataModel
             return (await _context.SaveChangesAsync()) > 0;
         }
 
-        public async Task<Menu[]> GetMenuAsync(bool includeItems = false)
+        public async Task<Menu[]> GetAllMenusAsync(bool includeItems = false)
         {
             IQueryable<Menu> query = _context.Menus;
 
@@ -44,7 +44,7 @@ namespace TheMealsApp.DataModel
 
             if (includeItems)
             {
-                query = query.Include(c => c.Items.Select(t=>t.Name));
+                query = query.Include(c => c.Items);
             }
 
             // Query It

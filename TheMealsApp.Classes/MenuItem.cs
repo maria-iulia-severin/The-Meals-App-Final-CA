@@ -8,7 +8,6 @@ namespace TheMealsApp.Classes
         [Key]
         public int Id { get; set; }
         public int MenuId { get; set; }
-        //[ForeignKey("Id")]
         public Menu Menu { get; set; }
         public string Name { get; set; }
         public float Price { get; set; }

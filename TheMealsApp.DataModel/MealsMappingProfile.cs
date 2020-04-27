@@ -14,6 +14,8 @@ namespace TheMealsApp.DataModel
         public MealsMappingProfile()
         {
             CreateMap<Menu, MenuModel>();
+            //.ForMember(c=>c.ItemName, opt=>opt.MapFrom(m=>m.MenuType.)) for MenuItem to show the menu name 
+            CreateMap<MenuItem, MenuItemModel>();
         }
     }
 }

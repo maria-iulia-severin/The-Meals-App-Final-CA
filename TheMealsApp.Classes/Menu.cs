@@ -11,6 +11,6 @@ namespace TheMealsApp.Classes
         public string Moniker { get; set; }
         public MenuType MenuType { get; set; }
 
-        public ICollection<MenuItem> Items;
+        public ICollection<MenuItem> Items { get; set; }
     }
 }

@@ -6,12 +6,9 @@ using System.Threading.Tasks;
 
 namespace TheMealsApp.Classes.Models
 {
-   public class MenuModel
+    public class MenuItemModel
     {
         public string Name { get; set; }
-        //Surrogate Key
-        public string Moniker { get; set; }
-
-        public ICollection<MenuItemModel> Items { get; set; }
+        public float Price { get; set; }
     }
 }

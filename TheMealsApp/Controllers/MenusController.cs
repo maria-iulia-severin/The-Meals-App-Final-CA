@@ -28,11 +28,11 @@ namespace TheMealsApp.Controllers
         //Get http://.../api/menus
         //IHttpActionResult allows us to return both, the status code and the result
         [Route()]
-        public async Task<IHttpActionResult> Get()
+        public async Task<IHttpActionResult> Get(bool includeItems = false)
         {
             try
             {
-                var result = await _repository.GetMenuAsync();
+                var result = await _repository.GetAllMenusAsync(includeItems);
 
                 //Mapping - Map to MenuModel the result -IEnumerable because is a collection
                 var mapperResult = _mapper.Map<IEnumerable<MenuModel>>(result);
@@ -47,11 +47,11 @@ namespace TheMealsApp.Controllers
         }
 
         [Route("{moniker}")]
-        public async Task<IHttpActionResult> Get(string moniker)
+        public async Task<IHttpActionResult> Get(string moniker, bool includeItems = false)
         {
             try
             {
-                var result = await _repository.GetMenuAsync(moniker);
+                var result = await _repository.GetMenuAsync(moniker, includeItems);
 
                 if (result == null) return NotFound();
 
