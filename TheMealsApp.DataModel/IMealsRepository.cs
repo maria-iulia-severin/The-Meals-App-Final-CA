@@ -13,9 +13,8 @@ namespace TheMealsApp.DataModel
         Task<bool> SaveChangesAsync();
 
         // Menus 
-        Task<Menu[]> GetAllMenusAsync();
-     //   Task<Food[]> GetMenusWithMealsAsync(bool includeMenu = false);
-    
+        Task<Menu[]> GetMenuAsync(bool includeItems = false);
+        Task<Menu> GetMenuAsync(string moniker, bool includeItems = false);
           
 
 

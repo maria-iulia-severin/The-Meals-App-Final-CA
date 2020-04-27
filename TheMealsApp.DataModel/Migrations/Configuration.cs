@@ -57,7 +57,7 @@ namespace TheMealsApp.DataModel.Migrations
                                 Name = line[1],
                                 Price = (float)Convert.ToDouble(line[2]),
                                 //in case of update - comment next line
-                                AlcoholFree = bool.Parse(line[3]),
+                               // AlcoholFree = bool.Parse(line[3]),
                                 DrinkType = (BeverageType)Enum.ToObject(typeof(BeverageType), int.Parse(line[4]))
                             });
 

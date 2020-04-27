@@ -7,11 +7,13 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Routing;
+using System.Web.UI.WebControls;
 using TheMealsApp.Classes.Models;
 using TheMealsApp.DataModel;
 
 namespace TheMealsApp.Controllers
 {
+    [RoutePrefix("api/menus")]
     public class MenusController : ApiController
     {
         private readonly IMealsRepository _repository;
@@ -25,13 +27,14 @@ namespace TheMealsApp.Controllers
 
         //Get http://.../api/menus
         //IHttpActionResult allows us to return both, the status code and the result
+        [Route()]
         public async Task<IHttpActionResult> Get()
         {
             try
             {
-                var result = await _repository.GetAllMenusAsync();
+                var result = await _repository.GetMenuAsync();
 
-                //Mapping - Map to MenuModel the result - IEnumerable because is a collection
+                //Mapping - Map to MenuModel the result -IEnumerable because is a collection
                 var mapperResult = _mapper.Map<IEnumerable<MenuModel>>(result);
 
                 return Ok(mapperResult);
@@ -43,23 +46,24 @@ namespace TheMealsApp.Controllers
             }
         }
 
+        [Route("{moniker}")]
+        public async Task<IHttpActionResult> Get(string moniker)
+        {
+            try
+            {
+                var result = await _repository.GetMenuAsync(moniker);
 
-        //public async Task<IHttpActionResult> Get()
-        //{
-        //    try
-        //    {
-        //        var result = await _repository.GetMenusWithMealsAsync();
+                if (result == null) return NotFound();
 
-        //        //Mapping - Map to MenuModel the result - IEnumerable because is a collection
-        //       // var mapperResult = _mapper.Map<IEnumerable<MenuModel>>(result);
+                return Ok(_mapper.Map<MenuModel>(result));
 
-        //        return Ok(result);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        //to add loggin
-        //        return InternalServerError(ex);
-        //    }
-        //}
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+
+            }
+        }
+
     }
 }

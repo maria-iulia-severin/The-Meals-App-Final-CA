@@ -16,34 +16,41 @@ namespace TheMealsApp.DataModel
         {
             _context = context;
         }
-
-        public async Task<Menu[]> GetAllMenusAsync()
-        {
-            IQueryable<Menu> query = _context.Menus;
-            return await query.ToArrayAsync();
-        }
-
-        //public async Task<Food[]> GetMenusWithMealsAsync(bool includeMenu = false)
-        //{
-        //    IQueryable<Food> query = _context.Foods;
-        //    if(includeMenu)
-        //    {
-        //        query = query
-        //            .Include(c => c.Menu);
-        //    }
-
-         
-        //    // Order It
-        //    query = query.OrderByDescending(c => c.Name);
-
-        //    return await query.ToArrayAsync();
-        //}
-
         public async Task<bool> SaveChangesAsync()
         {
             // Only return success if at least one row was changed
             return (await _context.SaveChangesAsync()) > 0;
         }
 
+        public async Task<Menu[]> GetMenuAsync(bool includeItems = false)
+        {
+            IQueryable<Menu> query = _context.Menus;
+
+            if (includeItems)
+            {
+                query = query
+                  .Include(c => c.Items);
+            }
+
+            // Order It
+            query = query.OrderByDescending(c => c.MenuType);
+
+            return await query.ToArrayAsync();
+        }
+
+        public async Task<Menu> GetMenuAsync(string moniker, bool includeItems = false)
+        {
+            IQueryable<Menu> query = _context.Menus;
+
+            if (includeItems)
+            {
+                query = query.Include(c => c.Items.Select(t=>t.Name));
+            }
+
+            // Query It
+            query = query.Where(c => c.Moniker == moniker);
+
+            return await query.FirstOrDefaultAsync();
+        }
     }
 }

@@ -9,5 +9,7 @@ namespace TheMealsApp.Classes.Models
    public class MenuModel
     {
         public string Name { get; set; }
+        //Surrogate Key
+        public string Moniker { get; set; }
     }
 }
