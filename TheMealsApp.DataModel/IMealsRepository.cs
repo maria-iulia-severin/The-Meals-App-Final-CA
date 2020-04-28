@@ -20,5 +20,9 @@ namespace TheMealsApp.DataModel
         void AddMenu(Menu menu);
         void DeleteMenu(Menu menu);
 
+        //MenuItems
+        Task<MenuItem[]> GetMenuItemsByMonikerAsync(string moniker, bool includeMenu = false);
+        Task<MenuItem> GetMenuItemByMonikerAsync(string moniker, int itemId, bool includeMenu = false);
+
     }
 }

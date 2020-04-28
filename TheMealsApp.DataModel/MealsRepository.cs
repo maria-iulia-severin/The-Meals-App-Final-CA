@@ -11,7 +11,7 @@ namespace TheMealsApp.DataModel
     public class MealsRepository : IMealsRepository
     {
         private readonly MealsContext _context;
-        private readonly MenuType mType;
+        //private readonly MenuType mType;
         public MealsRepository(MealsContext context)
         {
             _context = context;
@@ -105,6 +105,42 @@ namespace TheMealsApp.DataModel
         {
 
             _context.Menus.Remove(menu);
+        }
+
+        //MenuItems
+        public async Task<MenuItem[]> GetMenuItemsByMonikerAsync(string moniker, bool includeMenu = false)
+        {
+            IQueryable<MenuItem> query = _context.MenuItems;
+
+            if (includeMenu)
+            {
+                query = query
+                  .Include(t => t.Menu);
+            }
+
+            // Add Query
+            query = query
+              .Where(t => t.Menu.Moniker == moniker)
+              .OrderByDescending(t => t.Price);
+
+            return await query.ToArrayAsync();
+        }
+
+        public async Task<MenuItem> GetMenuItemByMonikerAsync(string moniker, int itemId, bool includeMenu = false)
+        {
+            IQueryable<MenuItem> query = _context.MenuItems;
+
+            if (includeMenu)
+            {
+                query = query
+                  .Include(t => t.Menu);
+            }
+
+            // Add Query
+            query = query
+              .Where(t => t.Id == itemId && t.Menu.Moniker == moniker);
+
+            return await query.FirstOrDefaultAsync();
         }
     }
 }
