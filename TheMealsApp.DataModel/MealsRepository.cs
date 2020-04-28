@@ -148,5 +148,10 @@ namespace TheMealsApp.DataModel
 
             _context.MenuItems.Add(item);
         }
+
+        public void DeleteItem(MenuItem item)
+        {
+            _context.MenuItems.Remove(item);
+        }
     }
 }

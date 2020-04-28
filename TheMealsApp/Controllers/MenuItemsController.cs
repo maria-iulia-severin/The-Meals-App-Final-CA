@@ -108,5 +108,29 @@ namespace TheMealsApp.Controllers
             return BadRequest(ModelState);
 
         }
+
+        [Route("{itemId:int}")]
+        public async Task<IHttpActionResult> Delete(string moniker, int itemId)
+        {
+            try
+            {
+                var item = await _repository.GetMenuItemByMonikerAsync(moniker, itemId);
+                if (item == null) return NotFound();
+
+                _repository.DeleteItem(item);
+                if (await _repository.SaveChangesAsync())
+                {
+                    return Ok();
+                }
+                else
+                {
+                    return InternalServerError();
+                }
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+        }
     }
 }
