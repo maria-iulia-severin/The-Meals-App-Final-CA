@@ -16,7 +16,8 @@ namespace TheMealsApp.DataModel
             CreateMap<Menu, MenuModel>()
                 .ReverseMap();
             //.ForMember(c=>c.ItemName, opt=>opt.MapFrom(m=>m.MenuType.)) for MenuItem to show the menu name 
-            CreateMap<MenuItem, MenuItemModel>();
+            CreateMap<MenuItem, MenuItemModel>()
+                .ReverseMap();
         }
     }
 }

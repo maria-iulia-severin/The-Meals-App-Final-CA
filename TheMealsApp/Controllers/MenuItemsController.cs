@@ -1,11 +1,12 @@
 ﻿using AutoMapper;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web.Http;
 using TheMealsApp.Classes.Models;
 using TheMealsApp.DataModel;
+using System.Web.Routing;
+using System.Web.UI.WebControls;
 
 namespace TheMealsApp.Controllers
 {
@@ -34,8 +35,8 @@ namespace TheMealsApp.Controllers
         }
 
 
-        [Route("{id:int}")]
-        public async Task<IHttpActionResult> Get(string moniker,int id, bool includeMenu = false)
+        [Route("{id:int}", Name = "GetItem")]
+        public async Task<IHttpActionResult> Get(string moniker, int id, bool includeMenu = false)
         {
             try
             {
@@ -48,5 +49,34 @@ namespace TheMealsApp.Controllers
             { return InternalServerError(ex); }
         }
 
+        [Route()]
+        public async Task<IHttpActionResult> Post(string moniker, MenuItemModel model)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var menu = await _repository.GetMenuAsync(moniker);
+                    if (menu != null)
+                    {
+                        var item = _mapper.Map<TheMealsApp.Classes.MenuItem>(model);
+                        item.Menu = menu;
+                        _repository.AddMenuItem(item);
+
+                        if (await _repository.SaveChangesAsync())
+                        {
+                            return CreatedAtRoute("GetItem",
+                                new { moniker = moniker, id = item.Id },
+                               _mapper.Map<MenuItemModel>(item));
+                        }
+                    }
+                }
+            }catch (Exception ex)
+            { 
+                return InternalServerError(ex); 
+            }
+
+            return BadRequest();
+        }
     }
 }

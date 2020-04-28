@@ -142,5 +142,11 @@ namespace TheMealsApp.DataModel
 
             return await query.FirstOrDefaultAsync();
         }
+
+        public void AddMenuItem(MenuItem item)
+        {
+
+            _context.MenuItems.Add(item);
+        }
     }
 }
