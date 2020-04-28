@@ -155,6 +155,30 @@ namespace TheMealsApp.Controllers
             }
         }
 
+        [Route("{moniker}")]
+        public async Task<IHttpActionResult> Delete(string moniker)
+        {
+            try
+            {
+                var menu = await _repository.GetMenuAsync(moniker);
+                if (menu == null) return NotFound();
+
+                _repository.DeleteMenu(menu);
+                if(await _repository.SaveChangesAsync())
+                {
+                    return Ok();
+                }
+                else
+                {
+                    return InternalServerError();
+                }
+            }
+            catch(Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+        }
+
 
 
     }

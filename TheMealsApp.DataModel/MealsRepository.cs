@@ -91,12 +91,6 @@ namespace TheMealsApp.DataModel
              .Where(c => c.MenuType == mType);
             }
 
-
-
-            // Order It
-            //query = query.OrderByDescending(c => c.MenuType)
-            //  .Where(c => c.MenuType == mType);
-
             return await query.ToArrayAsync();
         }
 
@@ -105,6 +99,12 @@ namespace TheMealsApp.DataModel
 
             _context.Menus.Add(menu);
 
+        }
+
+        public void DeleteMenu(Menu menu)
+        {
+
+            _context.Menus.Remove(menu);
         }
     }
 }
