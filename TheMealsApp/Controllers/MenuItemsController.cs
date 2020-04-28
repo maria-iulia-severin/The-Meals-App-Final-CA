@@ -71,12 +71,42 @@ namespace TheMealsApp.Controllers
                         }
                     }
                 }
-            }catch (Exception ex)
-            { 
-                return InternalServerError(ex); 
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
             }
 
-            return BadRequest();
+            return BadRequest(ModelState);
+        }
+
+        [Route("{itemId:int}")]
+        public async Task<IHttpActionResult> Put(string moniker, int itemId, MenuItemModel model)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var item = await _repository.GetMenuItemByMonikerAsync(moniker, itemId, true);
+                    if (item == null) return NotFound();
+
+                    //It is going to ignore the menu
+                    _mapper.Map(model, item);
+
+                    if (await _repository.SaveChangesAsync())
+                    {
+                        return Ok(_mapper.Map<MenuItemModel>(item));
+                    }
+                    else { return InternalServerError(); }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+            return BadRequest(ModelState);
+
         }
     }
 }
