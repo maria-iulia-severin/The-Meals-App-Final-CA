@@ -48,10 +48,10 @@ namespace TheMealsApp.Controllers
             }
         }
 
-        [Route("{moniker}", Name= "GetMenu")]
+        [Route("{moniker}", Name = "GetMenu")]
         public async Task<IHttpActionResult> Get(string moniker, bool includeItems = false)
         {
-            try 
+            try
             {
                 var result = await _repository.GetMenuAsync(moniker, includeItems);
 
@@ -110,27 +110,49 @@ namespace TheMealsApp.Controllers
         {
             try
             {
-                if(await _repository.GetMenuAsync(model.Moniker)!=null)
+                if (await _repository.GetMenuAsync(model.Moniker) != null)
                 {
                     ModelState.AddModelError("Moniker", "Moniker in use");
                 }
-                if(ModelState.IsValid)
+                if (ModelState.IsValid)
                 {
                     var menu = _mapper.Map<Menu>(model);
                     _repository.AddMenu(menu);
-                    if(await _repository.SaveChangesAsync())
+                    if (await _repository.SaveChangesAsync())
                     {
                         var newModel = _mapper.Map<MenuModel>(menu);
-                        return CreatedAtRoute("GetMenu",new { moniker = newModel.Moniker },newModel);
+                        return CreatedAtRoute("GetMenu", new { moniker = newModel.Moniker }, newModel);
                     }
                 }
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return InternalServerError(ex);
             }
             return BadRequest(ModelState);
+        }
+
+        [Route("{moniker}")]
+        public async Task<IHttpActionResult> Put(string moniker, MenuModel model)
+        {
+            try
+            {
+                var menu = await _repository.GetMenuAsync(moniker);
+                if (menu == null) return NotFound();
+
+                _mapper.Map(model, menu);
+
+                if (await _repository.SaveChangesAsync())
+                {
+                    return Ok(_mapper.Map<MenuModel>(menu));
+                }
+                else { return InternalServerError(); }
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
         }
 
 
