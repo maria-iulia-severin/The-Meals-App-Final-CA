@@ -13,7 +13,8 @@ namespace TheMealsApp.DataModel
     {
         public MealsMappingProfile()
         {
-            CreateMap<Menu, MenuModel>();
+            CreateMap<Menu, MenuModel>()
+                .ReverseMap();
             //.ForMember(c=>c.ItemName, opt=>opt.MapFrom(m=>m.MenuType.)) for MenuItem to show the menu name 
             CreateMap<MenuItem, MenuItemModel>();
         }

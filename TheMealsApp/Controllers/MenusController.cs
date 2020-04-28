@@ -11,6 +11,7 @@ using System.Web.UI.WebControls;
 using TheMealsApp.Classes;
 using TheMealsApp.Classes.Models;
 using TheMealsApp.DataModel;
+using Menu = TheMealsApp.Classes.Menu;
 
 namespace TheMealsApp.Controllers
 {
@@ -47,10 +48,10 @@ namespace TheMealsApp.Controllers
             }
         }
 
-        [Route("{moniker}")]
+        [Route("{moniker}", Name= "GetMenu")]
         public async Task<IHttpActionResult> Get(string moniker, bool includeItems = false)
         {
-            try
+            try 
             {
                 var result = await _repository.GetMenuAsync(moniker, includeItems);
 
@@ -103,5 +104,36 @@ namespace TheMealsApp.Controllers
                 return InternalServerError(ex);
             }
         }
+
+        [Route()]
+        public async Task<IHttpActionResult> Post(MenuModel model)
+        {
+            try
+            {
+                if(await _repository.GetMenuAsync(model.Moniker)!=null)
+                {
+                    ModelState.AddModelError("Moniker", "Moniker in use");
+                }
+                if(ModelState.IsValid)
+                {
+                    var menu = _mapper.Map<Menu>(model);
+                    _repository.AddMenu(menu);
+                    if(await _repository.SaveChangesAsync())
+                    {
+                        var newModel = _mapper.Map<MenuModel>(menu);
+                        return CreatedAtRoute("GetMenu",new { moniker = newModel.Moniker },newModel);
+                    }
+                }
+
+            }
+            catch(Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+            return BadRequest(ModelState);
+        }
+
+
+
     }
 }

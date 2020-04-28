@@ -78,7 +78,7 @@ namespace TheMealsApp.DataModel
                 query = query
                   .Include(c => c.Items);
             }
-            if (menuType=="food")
+            if (menuType == "food")
             {
                 MenuType mType = MenuType.Food;
                 query = query.OrderByDescending(c => c.MenuType)
@@ -91,13 +91,20 @@ namespace TheMealsApp.DataModel
              .Where(c => c.MenuType == mType);
             }
 
-           
+
 
             // Order It
             //query = query.OrderByDescending(c => c.MenuType)
             //  .Where(c => c.MenuType == mType);
 
             return await query.ToArrayAsync();
+        }
+
+        public void AddMenu(Menu menu)
+        {
+
+            _context.Menus.Add(menu);
+
         }
     }
 }
