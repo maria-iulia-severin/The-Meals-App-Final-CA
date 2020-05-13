@@ -6,6 +6,7 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using System.Web.Routing;
 using System.Web.UI.WebControls;
 using TheMealsApp.Classes;
@@ -13,8 +14,10 @@ using TheMealsApp.Classes.Models;
 using TheMealsApp.DataModel;
 using Menu = TheMealsApp.Classes.Menu;
 
+
 namespace TheMealsApp.Controllers
 {
+    [EnableCors("https://localhost:44380", "*", "*")]
     [RoutePrefix("api/menus")]
     public class MenusController : ApiController
     {

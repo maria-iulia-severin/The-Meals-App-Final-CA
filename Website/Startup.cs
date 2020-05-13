@@ -1,4 +1,5 @@
-﻿using Microsoft.Owin;
+﻿using ActivityTracker;
+using Microsoft.Owin;
 using Owin;
 
 [assembly: OwinStartupAttribute(typeof(Website.Startup))]
@@ -9,6 +10,7 @@ namespace Website
         public void Configuration(IAppBuilder app)
         {
             ConfigureAuth(app);
+        //    Activity.Track("Starting to work on the Website");
         }
     }
 }

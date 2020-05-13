@@ -25,6 +25,7 @@ namespace TheMealsApp.App_Start
             bldr.RegisterWebApiModelBinderProvider();
             var container = bldr.Build();
             config.DependencyResolver = new AutofacWebApiDependencyResolver(container);
+           
         }
 
         private static void RegisterServices(ContainerBuilder bldr)
