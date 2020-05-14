@@ -11,6 +11,11 @@ namespace TheMealsApp.DataModel
     {
         // General 
         Task<bool> SaveChangesAsync();
+        //Customers
+        Task<Customer[]> GetAllCustomersAsync();
+        Task<Customer> GetCustomerAsync(int id);
+        void AddCustomer(Customer customer);
+        void DeleteCustomer(Customer customer);
 
         // Menus 
         void AddMenu(Menu menu);
@@ -26,5 +31,6 @@ namespace TheMealsApp.DataModel
         Task<MenuItem> GetMenuItemByMonikerAsync(string moniker, int itemId, bool includeMenu = false);
         void AddMenuItem(MenuItem item);
         void DeleteItem(MenuItem item);
+
     }
 }

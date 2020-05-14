@@ -153,5 +153,35 @@ namespace TheMealsApp.DataModel
         {
             _context.MenuItems.Remove(item);
         }
+
+        //Customers
+        public async Task<Customer[]> GetAllCustomersAsync()
+        {
+            IQueryable<Customer> query = _context.Customers;
+
+            // Order It
+            query = query.OrderByDescending(c => c.Name);
+
+            return await query.ToArrayAsync();
+        }
+
+        public async Task<Customer> GetCustomerAsync(int id)
+        {
+            IQueryable<Customer> query = _context.Customers;
+            // Query It
+            query = query.Where(c => c.Id == id);
+
+            return await query.FirstOrDefaultAsync();
+        }
+
+        public void AddCustomer(Customer customer)
+        {
+            _context.Customers.Add(customer);
+        }
+
+        public void DeleteCustomer(Customer customer)
+        {
+            _context.Customers.Remove(customer);
+        }
     }
 }
