@@ -1,0 +1,55 @@
+﻿
+@{
+    ViewBag.Title = "Item";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Item</h2>
+
+<table id="items" class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Item</th>
+            <th>Price</th>
+        </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            var url = window.location.href;
+            var pattern = /([^\/]+)\/?$/g;
+            var moniker = url.match(pattern).toString();  
+            var table = $('#items').DataTable({
+                ajax: {
+                    cache: true,
+                    url: 'https://localhost:44369/api/Menus/' + moniker + '?includeItems=true',
+                    dataSrc: "items"
+                },
+                columns: [
+                    {
+                        data: "menuName"
+                    },
+                    {
+                        data: "name"
+                    },
+                    {
+                        data: "price",
+                        render: function (data) {
+                            return "<p>" + data + " €</p>";
+                        }
+                    }
+                    //implement delete button
+                ]
+            });
+
+        });
+
+    </script>
+
+}

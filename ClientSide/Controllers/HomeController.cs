@@ -30,6 +30,10 @@ namespace ClientSide.Controllers
         {
             return View();
         }
+        public ActionResult Item( )
+        {
+            return View( );
+        }
 
     }
 }
