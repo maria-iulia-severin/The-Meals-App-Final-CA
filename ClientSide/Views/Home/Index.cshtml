@@ -1,43 +1,70 @@
 ﻿@{
     ViewBag.Title = "Home Page";
 }
-    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-        <!-- Indicators -->
-        <ol class="carousel-indicators">
-            <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-            <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-            <li data-target="#carousel-example-generic" data-slide-to="2"></li>
-        </ol>
+<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+        <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+        <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+        <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+    </ol>
 
-        <!-- Wrapper for slides -->
-        <div class="carousel-inner" role="listbox">
-            <div class="item active">
-                <img src="~/Content/Images/11.jpg" height="455" alt="img1" width="1500">
-                <div class="carousel-caption">
-                    THE MEALS APP
-                </div>
-            </div>
-            <div class="item">
-                <img src="~/Content/Images/12.jpg" height="455" alt="img2" width="1500">
-                <div class="carousel-caption">
-                    FIND YOUR PERFECT RECEPIE
-                </div>
-            </div>
-            <div class="item">
-                <img src="~/Content/Images/13.jpg" height="455" alt="img3" width="1500">
-                <div class="carousel-caption">
-                    DO IT YOURSELF OR COME AND TASTE IT IN OUR RESTAURANT!
-                </div>
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner" role="listbox">
+        <div class="item active">
+            <img src="~/Content/Images/11.jpg" height="455" alt="img1" width="1500">
+            <div class="carousel-caption">
+                THE MEALS APP
             </div>
         </div>
-
-        <!-- Controls -->
-        <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
-            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-        </a>
-        <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
-            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-        </a>
+        <div class="item">
+            <img src="~/Content/Images/12.jpg" height="455" alt="img2" width="1500">
+            <div class="carousel-caption">
+                FIND YOUR PERFECT RECEPIE
+            </div>
+        </div>
+        <div class="item">
+            <img src="~/Content/Images/13.jpg" height="455" alt="img3" width="1500">
+            <div class="carousel-caption">
+                DO IT YOURSELF OR COME AND TASTE IT IN OUR RESTAURANT!
+            </div>
+        </div>
     </div>
+
+    <!-- Controls -->
+    <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
+</div>
+
+<div class="card-group" style="margin-top:15px; display: flex; justify-content:space-evenly;">
+    <div class="card" style="width: 30rem;">
+        <img class="card-img-top" src="~/Content/Images/5.jpg" alt="Card image cap" height="180" width="286">
+        <div class="card-body">
+            <h5 class="card-title">Spanish Specialities</h5>
+            <p class="card-text"> Delightful Spanish cuisine from tortilla to paella.</p>
+            <a href="https://localhost:44380/Home/item/spanish" class="btn btn-primary">Recepie</a>
+        </div>
+    </div>
+    <div class="card" style="width: 30rem;">
+        <img class="card-img-top" src="~/Content/Images/4.jpg" alt="Card image cap" height="180" width="286">
+        <div class="card-body">
+            <h5 class="card-title">American Drinks</h5>
+            <p class="card-text">Get inspired by Stateside favourites, from burgers and hotdogs to pancakes and pies.</p>
+            <a href="https://localhost:44380/Home/item/americanDrink" class="btn btn-primary">Recepie</a>
+        </div>
+    </div>
+    <div class="card" style="width: 30rem;">
+        <img class="card-img-top" src="~/Content/Images/2.jpg" alt="Card image cap" height="180" width="286">
+        <div class="card-body">
+            <h5 class="card-title">Romanian Specialities</h5>
+            <p class="card-text">An easy winter salad, it’s a great accompaniment for grilled meats or it can be served on it’s own with fresh bread.</p>
+            <a href="https://localhost:44380/Home/item/romanian" class="btn btn-primary">Recepie</a>
+        </div>
+    </div>
+</div>
