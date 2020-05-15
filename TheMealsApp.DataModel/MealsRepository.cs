@@ -183,5 +183,20 @@ namespace TheMealsApp.DataModel
         {
             _context.Customers.Remove(customer);
         }
+
+        public void AddOrder(Order order)
+        {
+            _context.Orders.Add(order);
+        }
+
+        public async Task<Customer> GetCustomerNameAsync(string name)
+        {
+
+            IQueryable<Customer> query = _context.Customers;
+            // Query It
+            query = query.Where(c => c.Name.Contains(name));
+
+            return await query.FirstOrDefaultAsync();
+        }
     }
 }

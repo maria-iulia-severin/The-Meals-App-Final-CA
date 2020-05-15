@@ -8,6 +8,7 @@ namespace ClientSide.Controllers
 {
     public class HomeController : Controller
     {
+        [AllowAnonymous]
         public ActionResult Index()
         {
             return View();
@@ -26,14 +27,23 @@ namespace ClientSide.Controllers
 
             return View();
         }
+        [AllowAnonymous]
         public ActionResult Menu()
         {
             return View();
         }
-        public ActionResult Item( )
+        [AllowAnonymous]
+        public ActionResult Item()
         {
-            return View( );
+            return View();
         }
-
+        public ActionResult Customer()
+        {
+            return View();
+        }
+        public ActionResult Order()
+        {
+            return View();
+        }
     }
 }

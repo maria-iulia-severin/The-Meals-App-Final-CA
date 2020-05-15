@@ -15,128 +15,180 @@ using TheMealsApp.DataModel;
 
 namespace TheMealsApp.Controllers
 {
-    [RoutePrefix("api/customers")]
+    [EnableCors("https://localhost:44380", "*", "*")]
+  //  [RoutePrefix("api/customers")]
     public class CustomersController : ApiController
     {
-        private readonly IMealsRepository _repository;
+        private MealsContext _context;
         private readonly IMapper _mapper;
-        public CustomersController(IMealsRepository repository, IMapper mapper)
+
+        //public CustomersController(IMealsRepository repository, IMapper mapper)
+        //{
+        //    _repository = repository;
+        //    _mapper = mapper;
+        //}
+
+        public CustomersController(IMapper mapper)
         {
-            _repository = repository;
+            _context = new MealsContext();
             _mapper = mapper;
         }
 
+        // GET /api/customers
+        public IHttpActionResult GetCustomers(string query = null)
+        {
+            IQueryable<Customer> customersQuery = _context.Customers;
+
+            if (!String.IsNullOrWhiteSpace(query))
+                customersQuery = customersQuery.Where(c => c.Name.Contains(query));
+
+            var mapperResult = _mapper.Map<IEnumerable<CustomerModel>>(customersQuery);
+            var customerModel = customersQuery
+                .ToList();
+
+            return Ok(customerModel);
+        }
+        //private readonly IMealsRepository _repository;
+        
+       // private readonly IMapper _mapper;
+       
+        //public CustomersController(IMealsRepository repository, IMapper mapper)
+        //{
+        //    _repository = repository;
+        //    _mapper = mapper;
+        //}
+
         //Get http://.../api/customers
-        [Route()]
-        public async Task<IHttpActionResult> Get()
-        {
-            try
-            {
-                var result = await _repository.GetAllCustomersAsync();
+        //[Route()]
+        //public async Task<IHttpActionResult> Get()
+        //{
+        //    try
+        //    {
+        //        var result = await _repository.GetAllCustomersAsync();
 
-                //Mapping - Map to MenuModel the result -IEnumerable because is a collection
-                var mapperResult = _mapper.Map<IEnumerable<CustomerModel>>(result);
+        //        //Mapping - Map to MenuModel the result -IEnumerable because is a collection
+        //        var mapperResult = _mapper.Map<IEnumerable<CustomerModel>>(result);
 
-                return Ok(mapperResult);
-            }
-            catch (Exception ex)
-            {
-                //to add loggin
-                return InternalServerError(ex);
-            }
-        }
+        //        return Ok(mapperResult);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        //to add loggin
+        //        return InternalServerError(ex);
+        //    }
+        //}
 
-        [Route("{id}", Name = "GetCustomer")]
-        public async Task<IHttpActionResult> Get(int id)
-        {
-            try
-            {
-                var result = await _repository.GetCustomerAsync(id);
 
-                if (result == null) return NotFound();
+        //[Route("{name}", Name = "GetCustomer")]
+        //public async Task<IHttpActionResult> Get(string name=null)
+        //{
+        //    try
+        //    {
+        //        var result = await _repository.GetCustomerNameAsync(name);
 
-                return Ok(_mapper.Map<CustomerModel>(result));
+        //        if (result == null) return NotFound();
 
-            }
-            catch (Exception ex)
-            {
-                return InternalServerError(ex);
+        //        return Ok(_mapper.Map<CustomerModel>(result));
 
-            }
-        }
-        [Route()]
-        public async Task<IHttpActionResult> Post(CustomerModel model)
-        {
-            try
-            {
-                if (await _repository.GetCustomerAsync(model.Id) != null)
-                {
-                    ModelState.AddModelError("Id", "Id in use");
-                }
-                if (ModelState.IsValid)
-                {
-                    var customer = _mapper.Map<Customer>(model);
-                    _repository.AddCustomer(customer);
-                    if (await _repository.SaveChangesAsync())
-                    {
-                        var newModel = _mapper.Map<CustomerModel>(customer);
-                        return CreatedAtRoute("GetCustomer", new { id = newModel.Id }, newModel);
-                    }
-                }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return InternalServerError(ex);
 
-            }
-            catch (Exception ex)
-            {
-                return InternalServerError(ex);
-            }
-            return BadRequest(ModelState);
-        }
-        [Route("{id}")]
-        public async Task<IHttpActionResult> Put(int id, CustomerModel model)
-        {
-            try
-            {
-                var customer = await _repository.GetCustomerAsync(id);
-                if (customer == null) return NotFound();
+        //    }
+        //}
 
-                _mapper.Map(model, customer);
+        //[Route("{id}", Name = "GetCustomer")]
+        //public async Task<IHttpActionResult> Get(int id)
+        //{
+        //    try
+        //    {
+        //        var result = await _repository.GetCustomerAsync(id);
 
-                if (await _repository.SaveChangesAsync())
-                {
-                    return Ok(_mapper.Map<CustomerModel>(customer));
-                }
-                else { return InternalServerError(); }
-            }
-            catch (Exception ex)
-            {
-                return InternalServerError(ex);
-            }
-        }
+        //        if (result == null) return NotFound();
 
-        [Route("{id}")]
-        public async Task<IHttpActionResult> Delete(int id)
-        {
-            try
-            {
-                var customer = await _repository.GetCustomerAsync(id);
-                if (customer == null) return NotFound();
+        //        return Ok(_mapper.Map<CustomerModel>(result));
 
-                _repository.DeleteCustomer(
-                    customer);
-                if (await _repository.SaveChangesAsync())
-                {
-                    return Ok();
-                }
-                else
-                {
-                    return InternalServerError();
-                }
-            }
-            catch (Exception ex)
-            {
-                return InternalServerError(ex);
-            }
-        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return InternalServerError(ex);
+
+        //    }
+        //}
+        //[Route()]
+        //public async Task<IHttpActionResult> Post(CustomerModel model)
+        //{
+        //    try
+        //    {
+        //        if (await _repository.GetCustomerAsync(model.Id) != null)
+        //        {
+        //            ModelState.AddModelError("Id", "Id in use");
+        //        }
+        //        if (ModelState.IsValid)
+        //        {
+        //            var customer = _mapper.Map<Customer>(model);
+        //            _repository.AddCustomer(customer);
+        //            if (await _repository.SaveChangesAsync())
+        //            {
+        //                var newModel = _mapper.Map<CustomerModel>(customer);
+        //                return CreatedAtRoute("GetCustomer", new { id = newModel.Id }, newModel);
+        //            }
+        //        }
+
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return InternalServerError(ex);
+        //    }
+        //    return BadRequest(ModelState);
+        //}
+        //[Route("{id}")]
+        //public async Task<IHttpActionResult> Put(int id, CustomerModel model)
+        //{
+        //    try
+        //    {
+        //        var customer = await _repository.GetCustomerAsync(id);
+        //        if (customer == null) return NotFound();
+
+        //        _mapper.Map(model, customer);
+
+        //        if (await _repository.SaveChangesAsync())
+        //        {
+        //            return Ok(_mapper.Map<CustomerModel>(customer));
+        //        }
+        //        else { return InternalServerError(); }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return InternalServerError(ex);
+        //    }
+        //}
+
+        //[Route("{id}")]
+        //public async Task<IHttpActionResult> Delete(int id)
+        //{
+        //    try
+        //    {
+        //        var customer = await _repository.GetCustomerAsync(id);
+        //        if (customer == null) return NotFound();
+
+        //        _repository.DeleteCustomer(
+        //            customer);
+        //        if (await _repository.SaveChangesAsync())
+        //        {
+        //            return Ok();
+        //        }
+        //        else
+        //        {
+        //            return InternalServerError();
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return InternalServerError(ex);
+        //    }
+        //}
 
     }
 }

@@ -7,9 +7,11 @@ using TheMealsApp.Classes.Models;
 using TheMealsApp.DataModel;
 using System.Web.Routing;
 using System.Web.UI.WebControls;
+using System.Web.Http.Cors;
 
 namespace TheMealsApp.Controllers
 {
+    [EnableCors("https://localhost:44380", "*", "*")]
     [RoutePrefix("api/menus/{moniker}/items")]
     public class MenuItemsController : ApiController
     {

@@ -14,7 +14,9 @@ namespace ClientSide
                         "~/scripts/bootbox.js",
                         "~/Scripts/respond.js",
                         "~/scripts/datatables/jquery.datatables.js",
-                        "~/scripts/datatables/datatables.bootstrap.js"
+                        "~/scripts/datatables/datatables.bootstrap.js",
+                        "~/scripts/typeahead.bundle.js",
+                        "~/scripts/toastr.js"
                         ));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
@@ -28,7 +30,9 @@ namespace ClientSide
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css",
-                  "~/content/datatables/css/datatables.bootstrap.css"));
+                      "~/content/datatables/css/datatables.bootstrap.css",
+                      "~/content/typeahead.css",
+                      "~/content/toastr.css"));
         }
     }
 }

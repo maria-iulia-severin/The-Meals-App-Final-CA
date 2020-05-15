@@ -21,6 +21,8 @@ namespace TheMealsApp.DataModel
                 .ForMember(t => t.Menu, opt => opt.Ignore());
             CreateMap<Customer, CustomerModel>()
                 .ReverseMap();
+            CreateMap<Order, OrderModel>()
+                 .ReverseMap();
         }
     }
 }
