@@ -80,7 +80,7 @@ namespace TheMealsApp.Controllers
 
 
         //[Route("{name}", Name = "GetCustomer")]
-        //public async Task<IHttpActionResult> Get(string name = null)
+        //public async Task<IHttpActionResult> Get(string name)
         //{
         //    try
         //    {

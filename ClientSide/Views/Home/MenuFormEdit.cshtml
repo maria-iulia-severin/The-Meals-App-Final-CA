@@ -1,0 +1,62 @@
+﻿
+@{
+    ViewBag.Title = "MenuFormEdit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>MenuFormEdit</h2>
+
+<form id="editMenu">
+    <div class="form-group">
+        <label>Menu Name</label>
+        <div class="tt-container">
+            <input id="name" name="name" required type="text" value="" class="form-control" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Moniker</label>
+        <div class="tt-container">
+            <input id="moniker" name="moniker" type="text" value="moniker" class="form-control" />
+        </div>
+    </div>
+
+    <button class="btn btn-primary js-submit">Submit</button>
+</form>
+
+
+@section scripts
+{
+    <script>
+        $("#editMenu", function () {
+            var button = $(this);
+            var url = window.location.href;
+            var pattern = /([^\/]+)\/?$/g;
+            var parameters = url.match(pattern).toString();
+
+            parameters = parameters.split(/[?&]/);
+
+            var moniker = parameters[1];
+            var name = parameters[2].replace("%20", " ")
+
+            $('#moniker').val(moniker);
+            $('#name').val(name);
+
+        });
+
+        $("#editMenu").on("click", ".js-submit", function () {
+            var button = $(this);
+
+
+            $.ajax({
+                url: 'https://localhost:44369/api/Menus/',
+                method: "PUT"
+            });
+   
+
+        });
+
+
+
+    </script>
+}

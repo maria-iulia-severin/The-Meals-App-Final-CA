@@ -441,6 +441,7 @@
     <Content Include="Views\Home\Order.cshtml" />
     <Content Include="Views\Home\ViewOnlyMenu.cshtml" />
     <Content Include="Views\Home\MenuForm.cshtml" />
+    <Content Include="Views\Home\MenuFormEdit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

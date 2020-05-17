@@ -13,6 +13,7 @@
             <th>Name</th>
             <th>Item</th>
             <th>Delete</th>
+            <th>Edit</th>
         </tr>
     </thead>
     <tbody>
@@ -48,6 +49,12 @@
                         render: function (data) {
                             return "<button class='btn-link js-delete' data-menu-moniker=" + data + ">Delete</button>";
                         }
+                    },
+                    {
+                        data: "moniker",
+                        render: function (data, type, menu) {
+                            return "<a href='https://localhost:44380/Home/EditMenu/?" + menu.moniker + "&" + menu.name + "'> Edit </a>";
+                        }
                     }
                 ]
             });
@@ -67,6 +74,7 @@
                         });
                     }
                 });
+
 
 
 

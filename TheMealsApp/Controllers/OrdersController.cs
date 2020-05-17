@@ -12,6 +12,7 @@ using System.Web.UI.WebControls;
 using TheMealsApp.Classes;
 using TheMealsApp.Classes.Models;
 using TheMealsApp.DataModel;
+using MenuItem = TheMealsApp.Classes.MenuItem;
 
 namespace TheMealsApp.Controllers
 {
@@ -19,70 +20,82 @@ namespace TheMealsApp.Controllers
     [RoutePrefix("api/orders")]
     public class OrdersController : ApiController
     {
-        private readonly MealsContext _context;
-        //private readonly MenuType mType;
-        public OrdersController()
+        private readonly IMealsRepository _repository;
+        private readonly IMapper _mapper;
+
+        public OrdersController(IMealsRepository repository, IMapper mapper)
         {
-            _context = new MealsContext();
+            _repository = repository;
+            _mapper = mapper;
         }
-
-        [HttpPost]
-        public IHttpActionResult CreateNewOrder(OrderModel newOrder)
-        {
-            var customer = _context.Customers.Single(
-                c => c.Id == newOrder.CustomerId);
-
-            var items = _context.MenuItems.Where(
-                m => newOrder.ItemIds.Contains(m.Id)).ToList();
-
-            foreach (var item in items)
-            {
-
-                var order = new Order
-                {
-                    Customer = customer,
-                    MenuItem = item,
-                    OrderDate = DateTime.Now
-                };
-
-                _context.Orders.Add(order);
-            }
-
-            _context.SaveChanges();
-
-            return Ok();
-        }
-
-
-        //[Route()]
-        //public async Task<IHttpActionResult> Post(OrderModel model)
+        //private readonly MealsContext _context;
+        //  private readonly MenuType mType;
+        //public OrdersController()
         //{
-        //    try
-        //    {
-        //        //if (await _repository.GetCustomerAsync(model.Id) != null)
-        //        //{
-        //        //    ModelState.AddModelError("Id", "Id in use");
-        //        //}
-        //        //if (ModelState.IsValid)
-        //        //{
-        //            var order = _mapper.Map<Order>(model);
-        //            _repository.AddOrder(order);
-        //            if (await _repository.SaveChangesAsync())
-        //            {
-        //                var newModel = _mapper.Map<CustomerModel>(order);
-        //                return CreatedAtRoute("GetOrder", new { id = newModel.Id }, newModel);
-        //            }
-        //        //}
+        //    _context = new MealsContext();
+        //}
 
-        //    }
-        //    catch (Exception ex)
+        //[HttpPost]
+        //public IHttpActionResult CreateNewOrder(OrderModel newOrder)
+        //{
+        //    var customer = _context.Customers.Single(
+        //        c => c.Id == newOrder.CustomerId);
+
+        //    var items = _context.MenuItems.Where(
+        //        m => newOrder.ItemIds.Contains(m.Id)).ToList();
+
+        //    foreach (var item in items)
         //    {
-        //        return InternalServerError(ex);
+
+        //        var order = new Order
+        //        {
+        //            Customer = customer,
+        //            MenuItem = item,
+        //            OrderDate = DateTime.Now
+        //        };
+
+        //        _context.Orders.Add(order);
         //    }
-        //    return BadRequest(ModelState);
+
+        //    _context.SaveChanges();
+
+        //    return Ok();
         //}
 
 
+        [Route()]
+        public async Task<IHttpActionResult> Post(OrderModel model)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var order = _mapper.Map<Order>(model);
+                    var result = await _repository.GetMenuItemByIdAsync(model.MenuItemId);
+                    order.MenuItem = _mapper.Map<MenuItem>(result);
+
+                    var result2 = await _repository.GetCustomerAsync(model.CustomerId);
+                    order.Customer = _mapper.Map<Customer>(result2);
+
+                    order.OrderDate = DateTime.Now;
+                    order.TotalPrice = order.MenuItem.Price;
+
+                    _repository.AddOrder(order);
+                    if (await _repository.SaveChangesAsync())
+                    {
+                        var newModel = _mapper.Map<OrderModel>(order);
+                        //return CreatedAtRoute("GetOrder", new { id = newModel.Id }, newModel);
+                        return Ok();
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+            return BadRequest(ModelState);
+        }
 
     }
 }

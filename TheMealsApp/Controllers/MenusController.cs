@@ -138,11 +138,13 @@ namespace TheMealsApp.Controllers
         }
 
         [Route("{moniker}")]
+        // public async Task<IHttpActionResult> Put([FromBody]MenuModel model)
         public async Task<IHttpActionResult> Put(string moniker, MenuModel model)
         {
             try
             {
                 var menu = await _repository.GetMenuAsync(moniker);
+                //var menu = await _repository.GetMenuAsync(model.Moniker);
                 if (menu == null) return NotFound();
 
                 _mapper.Map(model, menu);

@@ -143,6 +143,19 @@ namespace TheMealsApp.DataModel
             return await query.FirstOrDefaultAsync();
         }
 
+        public async Task<MenuItem> GetMenuItemByIdAsync(int itemId)
+        {
+            IQueryable<MenuItem> query = _context.MenuItems;
+
+   
+
+            // Add Query
+            query = query
+              .Where(t => t.Id == itemId);
+
+            return await query.FirstOrDefaultAsync();
+        }
+
         public void AddMenuItem(MenuItem item)
         {
 
@@ -194,7 +207,8 @@ namespace TheMealsApp.DataModel
 
             IQueryable<Customer> query = _context.Customers;
             // Query It
-            query = query.Where(c => c.Name.Contains(name));
+            //   query = query.Where(c => c.Name.Contains(name));
+            query = query.Where(c => c.Name == name);
 
             return await query.FirstOrDefaultAsync();
         }

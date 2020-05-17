@@ -55,6 +55,12 @@ namespace ClientSide.Controllers
             return View("MenuForm");
         }
 
+        [Authorize(Roles = "StaffMember")]
+        public ActionResult EditMenu()
+        {
+            return View("MenuFormEdit");
+        }
+
         [AllowAnonymous]
         public ActionResult Item()
         {
