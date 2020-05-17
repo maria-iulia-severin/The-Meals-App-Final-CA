@@ -1,0 +1,50 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>Menu</h2>
+<table id="menus" class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Item</th>
+        </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            var table = $('#menus').DataTable({
+                ajax: {
+                    cache: true,
+                    url: 'https://localhost:44369/api/menus?includeItems=true',
+                    dataSrc: ""
+                },
+                columns: [
+                    {
+                        data: "name",
+
+                        render: function (data, type, menu) {
+                            return "<a href='https://localhost:44380/Home/item/" + menu.moniker + "' >" + menu.name + "</a>";
+                        }
+                    },
+
+                    {
+                        //because is an array of objects
+                        data: "items.[1].name"
+                    }
+                ]
+            });
+
+
+
+        });
+
+    </script>
+
+}

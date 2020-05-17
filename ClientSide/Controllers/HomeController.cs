@@ -1,13 +1,26 @@
-﻿using System;
+﻿using ClientSide.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using TheMealsApp.DataModel;
 
 namespace ClientSide.Controllers
 {
     public class HomeController : Controller
     {
+        private MealsContext _context;
+
+        public HomeController()
+        {
+            _context = new MealsContext();
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            _context.Dispose();
+        }
         [AllowAnonymous]
         public ActionResult Index()
         {
@@ -30,10 +43,25 @@ namespace ClientSide.Controllers
         [AllowAnonymous]
         public ActionResult Menu()
         {
+            if (User.IsInRole("StaffMember"))
+                return View("Menu");
+            else
+                return View("ViewOnlyMenu");
+        }
+
+        [Authorize(Roles = "StaffMember")]
+        public ActionResult NewMenu()
+        {
+            return View("MenuForm");
+        }
+
+        [AllowAnonymous]
+        public ActionResult Item()
+        {
             return View();
         }
         [AllowAnonymous]
-        public ActionResult Item()
+        public ActionResult Exchange()
         {
             return View();
         }
@@ -41,6 +69,7 @@ namespace ClientSide.Controllers
         {
             return View();
         }
+        [Authorize(Roles ="StaffMember")]
         public ActionResult Order()
         {
             return View();

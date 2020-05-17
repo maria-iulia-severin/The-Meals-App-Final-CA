@@ -124,7 +124,8 @@ namespace TheMealsApp.Controllers
                     if (await _repository.SaveChangesAsync())
                     {
                         var newModel = _mapper.Map<MenuModel>(menu);
-                        return CreatedAtRoute("GetMenu", new { moniker = newModel.Moniker }, newModel);
+                        // return CreatedAtRoute("GetMenu", new { moniker = newModel.Moniker }, newModel);
+                        return Ok();
                     }
                 }
 
@@ -167,7 +168,7 @@ namespace TheMealsApp.Controllers
                 if (menu == null) return NotFound();
 
                 _repository.DeleteMenu(menu);
-                if(await _repository.SaveChangesAsync())
+                if (await _repository.SaveChangesAsync())
                 {
                     return Ok();
                 }
@@ -176,7 +177,7 @@ namespace TheMealsApp.Controllers
                     return InternalServerError();
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return InternalServerError(ex);
             }

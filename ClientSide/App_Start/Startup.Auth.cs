@@ -54,9 +54,9 @@ namespace ClientSide
             //   consumerKey: "",
             //   consumerSecret: "");
 
-            //app.UseFacebookAuthentication(
-            //   appId: "",
-            //   appSecret: "");
+            app.UseFacebookAuthentication(
+               appId: "662553930988420",
+               appSecret: "eaf678ed1535aa6eab3930cd233a744e");
 
             //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
             //{

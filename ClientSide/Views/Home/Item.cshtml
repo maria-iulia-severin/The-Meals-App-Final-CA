@@ -12,6 +12,8 @@
             <th>Name</th>
             <th>Item</th>
             <th>Price</th>
+            <th>PriceEur</th>
+
         </tr>
     </thead>
     <tbody>
@@ -24,7 +26,15 @@
         $(document).ready(function () {
             var url = window.location.href;
             var pattern = /([^\/]+)\/?$/g;
-            var moniker = url.match(pattern).toString();  
+            var moniker = url.match(pattern).toString();
+
+            var euro = 0;
+            $.getJSON("https://api.exchangeratesapi.io/latest?base=RON&symbols=EUR",
+                function (json) {
+                    euro = json.rates.EUR;
+                },
+            );
+
             var table = $('#items').DataTable({
                 ajax: {
                     cache: true,
@@ -39,12 +49,15 @@
                         data: "name"
                     },
                     {
+                        data: "price"
+                     
+                    },
+                    {
                         data: "price",
                         render: function (data) {
-                            return "<p>" + data + " €</p>";
+                            return data * euro;
                         }
                     }
-                    //implement delete button
                 ]
             });
 

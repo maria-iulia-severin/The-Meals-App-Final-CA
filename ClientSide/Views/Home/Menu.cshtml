@@ -3,6 +3,10 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <h2>Menu</h2>
+<p>
+    @Html.ActionLink("New Menu", "NewMenu", "Home", null, new { @class = "btn btn-primary" })
+</p>
+
 <table id="menus" class="table table-bordered table-hover">
     <thead>
         <tr>
