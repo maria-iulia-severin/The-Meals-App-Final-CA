@@ -32,7 +32,7 @@
             bootbox.confirm("Are you sure you want to send this menu?", function (result) {
                 if (result) {
                     $.ajax({
-                        url: 'https://localhost:44369/api/Menus/',
+                        url: 'https://localhost:44369/api/menus',
                         method: "POST"
                     });
                 }

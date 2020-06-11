@@ -12,7 +12,7 @@
             <th>Name</th>
             <th>Item</th>
             <th>Price</th>
-            <th>PriceEur</th>
+            <th>EUR Price</th>
 
         </tr>
     </thead>
@@ -49,13 +49,16 @@
                         data: "name"
                     },
                     {
-                        data: "price"
+                        data: "price",
+                        render: function (data) {
+                            return "<p>"+data+" RON </p>";
+                        }
                      
                     },
                     {
                         data: "price",
                         render: function (data) {
-                            return data * euro;
+                            return "<p>" + data * euro+ " EUR </p>";
                         }
                     }
                 ]

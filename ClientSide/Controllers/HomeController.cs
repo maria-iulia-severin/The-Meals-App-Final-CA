@@ -71,6 +71,8 @@ namespace ClientSide.Controllers
         {
             return View();
         }
+
+        [Authorize(Roles = "StaffMember")]
         public ActionResult Customer()
         {
             return View();

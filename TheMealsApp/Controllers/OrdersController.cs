@@ -28,41 +28,7 @@ namespace TheMealsApp.Controllers
             _repository = repository;
             _mapper = mapper;
         }
-        //private readonly MealsContext _context;
-        //  private readonly MenuType mType;
-        //public OrdersController()
-        //{
-        //    _context = new MealsContext();
-        //}
-
-        //[HttpPost]
-        //public IHttpActionResult CreateNewOrder(OrderModel newOrder)
-        //{
-        //    var customer = _context.Customers.Single(
-        //        c => c.Id == newOrder.CustomerId);
-
-        //    var items = _context.MenuItems.Where(
-        //        m => newOrder.ItemIds.Contains(m.Id)).ToList();
-
-        //    foreach (var item in items)
-        //    {
-
-        //        var order = new Order
-        //        {
-        //            Customer = customer,
-        //            MenuItem = item,
-        //            OrderDate = DateTime.Now
-        //        };
-
-        //        _context.Orders.Add(order);
-        //    }
-
-        //    _context.SaveChanges();
-
-        //    return Ok();
-        //}
-
-
+    
         [Route()]
         public async Task<IHttpActionResult> Post(OrderModel model)
         {
